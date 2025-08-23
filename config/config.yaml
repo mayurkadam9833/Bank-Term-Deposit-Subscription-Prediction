@@ -1,0 +1,9 @@
+artifacts_root: artifacts #main folder where all output store
+
+data_ingestion:
+ root_dir: artifacts/data_ingestion                        # data ingestion folder
+ source_url: https://github.com/mayurkadam9833/Datasets/raw/refs/heads/main/bank_full.zip # link for download data
+ local_data_file: artifacts/data_ingestion/bank_full.zip   # downloaded data store path
+ unzip_dir: artifacts/data_ingestion                       # exract file data path
+
+ 
