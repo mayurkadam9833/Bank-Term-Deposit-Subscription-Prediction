@@ -33,7 +33,7 @@ class DataIngestion:
             raise e
 
     # method for unzip file in directory 
-    def extract_file(self):
+    def Extract_file(self):
         #create unzip file path
         unzip_path=self.config.unzip_dir
         os.makedirs(unzip_path,exist_ok=True)
