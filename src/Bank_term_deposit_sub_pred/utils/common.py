@@ -23,7 +23,8 @@ def read_yaml(path_to_yaml:Path)-> ConfigBox:
     
     except Exception as e:
         raise e 
-   
+    # return yaml file content
+    return ConfigBox(content)
 
 # function to create a new directory
 @ensure_annotations
