@@ -9,7 +9,10 @@ class DataIngestionConfig:
     local_data_file: Path 
     unzip_dir: Path
 
+# config class for data validation setp
 @dataclass(frozen=True)
 class DataValidationConfig:
     root_dir: Path 
     unzip_data: Path
+    STATUS_FILE: Path
+    all_schema: dict
