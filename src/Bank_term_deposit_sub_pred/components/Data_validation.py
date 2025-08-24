@@ -3,7 +3,8 @@ from src.Bank_term_deposit_sub_pred.logging import logger
 from src.Bank_term_deposit_sub_pred.entity.config_entity import DataValidationConfig
 
 """
-DataValidation class contain schema validation methods which will validated schema of download data with define schema
+class for data validation contained methods 
+-> schema_validation
 """
 class DataValidation:
     def __init__(self,config:DataValidationConfig):
