@@ -1,7 +1,7 @@
 from src.Bank_term_deposit_sub_pred.constants import *
 from src.Bank_term_deposit_sub_pred.logging import logger
 from src.Bank_term_deposit_sub_pred.utils.common import read_yaml,create_dir
-from src.Bank_term_deposit_sub_pred.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from src.Bank_term_deposit_sub_pred.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
 
 """
 ConfigManager class is responsible for reading config, schema and params yaml files
@@ -55,4 +55,24 @@ class ConfigManager:
             all_schema=schema)
         
         return data_validation_config
+    
+    # method to get data transformation config object
+    def get_data_tranformation_config(self)-> DataTransformationConfig:
+        config=self.config.data_transformation
+        schema=self.schema.TARGET_COLUMN
+
+        # create validation folder
+        create_dir([config.root_dir])
+
+        # prepare and return DataValidationConfig dataclass
+        data_transformation_config=DataTransformationConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path,
+            target_col=list(schema.keys())[0]
+        )
+        
+        return data_transformation_config
+
+
+
 

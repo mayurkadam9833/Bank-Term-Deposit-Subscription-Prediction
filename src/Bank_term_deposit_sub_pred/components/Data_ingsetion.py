@@ -27,7 +27,7 @@ class DataIngestion:
 
             # if file is exists then return file size
             else:
-                logger.info(f"file is already exists of size {get_size(filename)}") 
+                logger.info(f"file is already exists of size {get_size(self.config.local_data_file)}") 
 
         except Exception as e:
             raise e
