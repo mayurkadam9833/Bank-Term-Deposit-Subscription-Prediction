@@ -1,7 +1,7 @@
 from src.Bank_term_deposit_sub_pred.constants import *
 from src.Bank_term_deposit_sub_pred.logging import logger
 from src.Bank_term_deposit_sub_pred.utils.common import read_yaml,create_dir
-from src.Bank_term_deposit_sub_pred.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
+from src.Bank_term_deposit_sub_pred.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig,ModelTrainerConfig,ModelEvaluationConfig
 
 """
 ConfigManager class is responsible for reading config, schema and params yaml files
@@ -13,7 +13,7 @@ class ConfigManager:
         self,
         config_file_path=CONFIG_FILE_PATH,
         schema_file_path=SCHEMA_FILE_PATH,
-        params_file_path=SCHEMA_FILE_PATH):
+        params_file_path=PARAMS_FILE_PATH):
 
         # read all yaml files (config, schema, params)
         self.config=read_yaml(config_file_path)
@@ -64,7 +64,7 @@ class ConfigManager:
         # create validation folder
         create_dir([config.root_dir])
 
-        # prepare and return DataValidationConfig dataclass
+        # prepare and return DataTransformationConfig dataclass
         data_transformation_config=DataTransformationConfig(
             root_dir=config.root_dir,
             data_path=config.data_path,
@@ -72,6 +72,46 @@ class ConfigManager:
         )
         
         return data_transformation_config
+    
+    # method to get model trainer config object
+    def get_model_trainer_config(self)-> ModelTrainerConfig:
+        config=self.config.model_trainer
+        schema=self.schema.TARGET_COLUMN
+        params=self.params.AdaBoostClassifier
+
+        # create model trainer folder
+        create_dir([config.root_dir])
+
+        # prepare and return ModelTrainerConfig dataclass
+        model_trainer_config=ModelTrainerConfig(
+            root_dir=config.root_dir,
+            train_data_path=config.train_data_path,
+            model_name=config.model_name,
+            target_col=list(schema.keys())[0],
+            n_estimators=params.n_estimators,
+            learning_rate=params.learning_rate)
+        
+        return model_trainer_config
+    
+    # method to get model evaluation config object
+    def get_model_evaluation_config(self)-> ModelEvaluationConfig:
+        config=self.config.model_evaluation
+        schema=self.schema.TARGET_COLUMN
+
+        # create model evaluation folder
+        create_dir([config.root_dir])
+
+        # prepare and return ModelEvaluationConfig dataclass
+        model_evaluation_config=ModelEvaluationConfig(
+                root_dir=config.root_dir,
+                test_data_path=config.test_data_path,
+                model_path=config.model_path,
+                evaluation_file=config.evaluation_file,
+                target_col=list(schema.keys())[0])
+        
+        return model_evaluation_config
+    
+
 
 
 

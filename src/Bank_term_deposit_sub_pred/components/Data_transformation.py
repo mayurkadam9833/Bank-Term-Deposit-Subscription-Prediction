@@ -53,8 +53,8 @@ class DataTransformation:
                 test_data=pd.concat([pd.DataFrame(scale_test_x).reset_index(drop=True),pd.DataFrame(test_y).reset_index(drop=True)],axis=1)
 
                 # save csv files to data transformation folder
-                train_data.to_csv(os.path.join(self.config.root_dir,"Train_data.csv"))
-                test_data.to_csv(os.path.join(self.config.root_dir,"Test_data.csv"))
+                train_data.to_csv(os.path.join(self.config.root_dir,"Train.csv"))
+                test_data.to_csv(os.path.join(self.config.root_dir,"Test.csv"))
 
             except Exception as e:
                 raise e

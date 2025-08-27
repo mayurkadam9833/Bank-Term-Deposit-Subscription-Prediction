@@ -15,14 +15,13 @@ def read_yaml(path_to_yaml:Path)-> ConfigBox:
         with open(path_to_yaml,"r")as yaml_file:
             content=yaml.safe_load(yaml_file)
             logger.info(f"yaml file loaded sucuessfully from {path_to_yaml}")
-            # return yaml file content
-            return ConfigBox(content)
     
     except BoxValueError:
         raise ValueError("yaml file is empty")
     
     except Exception as e:
         raise e 
+    
     # return yaml file content
     return ConfigBox(content)
 
@@ -44,6 +43,6 @@ def get_size(file):
 @ensure_annotations
 def save_json(path:Path,data:dict):
     with open(path,"w")as file:
-        json.dump(data,file)
+        json.dump(data,file,indent=4)
         logger.info(f"json file save sucessfully at : {path}")
 
